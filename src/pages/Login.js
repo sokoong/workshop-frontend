@@ -1,55 +1,52 @@
 import React from "react";
-// import { useNavigate } from "react-router-dom";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Checkbox, Form, Input } from "antd";
+import { Button, Checkbox, Form, Input, message, notification } from "antd";
+import Auth from "../hooks/Auth";
 
 function Login() {
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-  // const navigate = useNavigate();
+  const { login } = Auth();
 
-  // const handleSubmit = async (event) => {
-  //   event.preventDefault();
-  //   const response = await fetch("http://localhost:9000/login", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({ email, password }),
-  //   });
-  //   const data = await response.json();
-  //   if (response.ok) {
-  //     localStorage.setItem("token", data.token);
-  //     navigate("/items");
-  //   }
-  // };
-  const onFinish = (values) => {
-    console.log("Received values of form: ", values);
+  const onFinish = async (values) => {
+    try {
+      await login(values);
+      window.location.reload();
+    } catch (error) {
+      console.log("error", error);
+    }
   };
 
   return (
-    <Form name="normal_login" className="login-form" initialValues={{ remember: true }} onFinish={onFinish}>
-      <Form.Item name="username" rules={[{ required: true, message: "Please input your Username!" }]}>
-        <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
-      </Form.Item>
-      <Form.Item name="password" rules={[{ required: true, message: "Please input your Password!" }]}>
-        <Input prefix={<LockOutlined className="site-form-item-icon" />} type="password" placeholder="Password" />
-      </Form.Item>
-      <Form.Item>
-        <Form.Item name="remember" valuePropName="checked" noStyle>
-          <Checkbox>Remember me</Checkbox>
+    <div className="w-80 bg-white mx-auto shadow rounded p-5 pt-10 pb-10 relative mt-10">
+      <div className="flex justify-center mb-5">
+        <img className="h-8" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&amp;shade=600" alt="" />
+        <h1 className="pt-1.5 ml-2 font-sarabun">Workshop</h1>
+      </div>
+      <Form name="normal_login" className="login-form" initialValues={{ remember: true }} onFinish={onFinish}>
+        <Form.Item name="username" rules={[{ required: true, message: "Please input your Username!" }]}>
+          <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username: admin" />
         </Form.Item>
-        <a className="login-form-forgot" href="/forgot">
-          Forgot password
-        </a>
-      </Form.Item>
-      <Form.Item>
-        <Button type="primary" htmlType="submit" className="login-form-button">
-          Log in
-        </Button>
-        Or <a href="/register">register now!</a>
-      </Form.Item>
-    </Form>
+        <Form.Item name="password" rules={[{ required: true, message: "Please input your Password!" }]}>
+          <Input prefix={<LockOutlined className="site-form-item-icon" />} type="password" placeholder="Password: admin" />
+        </Form.Item>
+        <Form.Item>
+          <Form.Item name="remember" valuePropName="checked" noStyle>
+            <Checkbox>Remember me</Checkbox>
+          </Form.Item>
+          <a className="login-form-forgot" href="/forgot">
+            <u>Forgot password</u>
+          </a>
+        </Form.Item>
+        <Form.Item>
+          <Button type="primary" htmlType="submit" className="login-form-button bg-primary text-white mr-3">
+            Log in
+          </Button>
+          Or
+          <a href="/register">
+            <u>register now!</u>
+          </a>
+        </Form.Item>
+      </Form>
+    </div>
   );
 }
 

@@ -1,3 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html,
+body {
+  @apply bg-grey;
+}
+
+aside.ant-layout-sider-collapsed h1 {
+  display: none;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.ant-table-tbody>tr>td {
+  background: white
+}
+
+.btn {
+  @apply font-bold py-2 px-4 rounded;
+}
+
+.btn-xs {
+  padding: 3px 8px;
+  font-size: 12px
+}
+
+
+.btn-primary {
+  @apply bg-primary text-white;
+}
+
+.btn-primary:hover {
+  @apply bg-[#1677ff] text-white;
+}
+
+.btn-info {
+  @apply bg-primary text-white;
+}
+
+.btn-info:hover{
+  @apply bg-[#1677ff] text-white;
+}
+
+button.btn {
+  height: initial;
+}
