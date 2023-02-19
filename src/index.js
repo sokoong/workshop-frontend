@@ -14,8 +14,8 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
+          <Route index element={<PrivateRoute element={<Items />} />} />
           <Route path="login" element={<Login />} />
-          <Route path="items" element={<PrivateRoute element={<Items />} />} />
         </Route>
       </Routes>
     </BrowserRouter>
