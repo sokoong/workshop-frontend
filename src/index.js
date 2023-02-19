@@ -5,7 +5,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import Layout from "./components/Layout";
 import Login from "./pages/Login";
 import Items from "./pages/Items";
-import "./index.css";
+import "./output.css";
 
 const root = createRoot(document.getElementById("root"));
 
