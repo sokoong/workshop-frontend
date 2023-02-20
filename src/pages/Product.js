@@ -10,16 +10,17 @@ const Product = () => {
   const { Option } = Select;
   const { id } = useParams();
 
+  const fetchProduct = async () => {
+    try {
+      const response = await api.get(`/product/${id}`);
+      setProduct(response.data);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        const response = await api.get(`/product/${id}`);
-        setProduct(response.data);
-        setLoading(false);
-      } catch (error) {
-        console.log(error);
-      }
-    };
     if (!isNaN(id)) {
       fetchProduct();
     }
@@ -29,7 +30,7 @@ const Product = () => {
     try {
       setLoading(true);
       const token = localStorage.getItem("token");
-      const response = await api.put(`/product/${id}`, values, {
+      await api.put(`/product/${id}`, values, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -39,7 +40,7 @@ const Product = () => {
         description: "The form has been successfully submitted",
         placement: "bottomRight",
       });
-      setLoading(false);
+      fetchProduct();
     } catch (error) {
       console.log(error);
       setLoading(false);
