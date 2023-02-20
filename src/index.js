@@ -12,7 +12,14 @@ const root = createRoot(document.getElementById("root"));
 
 function App() {
   const token = localStorage.getItem("token");
-  const payload = token ? JSON.parse(window.atob(token.split(".")[1])) : null;
+  let payload = null;
+  if (token) {
+    try {
+      payload = JSON.parse(window.atob(token.split(".")[1]));
+    } catch (err) {
+      console.error("Error decoding JWT token:", err);
+    }
+  }
   const isAuthenticated = token && payload;
 
   return (
