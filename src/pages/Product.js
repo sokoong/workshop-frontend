@@ -23,6 +23,8 @@ const Product = () => {
   useEffect(() => {
     if (!isNaN(id)) {
       fetchProduct();
+    } else {
+      setLoading(false);
     }
   }, [id]);
 
