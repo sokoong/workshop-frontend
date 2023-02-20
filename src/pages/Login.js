@@ -21,7 +21,7 @@ function Login() {
         <img className="h-8" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&amp;shade=600" alt="" />
         <h1 className="pt-1.5 ml-2 font-sarabun">Workshop</h1>
       </div>
-      <Form name="normal_login" className="login-form" initialValues={{ remember: true }} onFinish={onFinish}>
+      <Form name="normal_login" className="login-form" initialValues={{ remember: true, username: "admin", password: "admin" }} onFinish={onFinish}>
         <Form.Item name="username" rules={[{ required: true, message: "Please input your Username!" }]}>
           <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username: admin" />
         </Form.Item>
@@ -40,7 +40,7 @@ function Login() {
           <Button type="primary" htmlType="submit" className="login-form-button bg-primary text-white mr-3">
             Log in
           </Button>
-          Or
+          Or{" "}
           <a href="/register">
             <u>register now!</u>
           </a>
