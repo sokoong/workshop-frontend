@@ -14,10 +14,10 @@ const Product = () => {
     try {
       const response = await api.get(`/product/${id}`);
       setProduct(response.data);
-      setLoading(false);
     } catch (error) {
       console.log(error);
     }
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -32,7 +32,9 @@ const Product = () => {
     try {
       setLoading(true);
       const token = localStorage.getItem("token");
-      await api.put(`/product/${id}`, values, {
+      const endpoint = id ? `/product/${id}` : "/product/add";
+      const method = id ? "put" : "post";
+      await api[method](endpoint, values, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
