@@ -13,7 +13,7 @@ const Template = () => {
   const handleLogout = () => {
     if (confirm("Are you sure to logout?")) {
       logout();
-      window.location.reload();
+      window.location = "/";
     }
   };
   const menus = [getItem("Product", "1", <ShoppingOutlined />), getItem("Not available", "2", <CloseCircleOutlined />), getItem("Not available", "sub1", <CloseCircleOutlined />, [getItem("Not available", "3"), getItem("Not available", "4"), getItem("Not available", "5")]), getItem("Not available", "sub2", <CloseCircleOutlined />, [getItem("Not available", "6"), getItem("Not available", "8")]), getItem("Logout", "9", <LogoutOutlined />, undefined, undefined, handleLogout)];
