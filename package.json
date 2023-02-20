@@ -24,6 +24,10 @@
     "watch:twind": "npx tailwindcss -i ./src/input.css -o ./src/output.css --watch",
     "dev": "concurrently \"npm start\" \"npm run watch:twind\""
   },
+  "engines": {
+    "node": "18.14",
+    "npm": "9.3"
+  },
   "browserslist": {
     "production": [
       ">0.2%",
