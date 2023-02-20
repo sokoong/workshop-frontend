@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Breadcrumb, Table } from "antd";
+import api from "../services/api";
 
 const Products = () => {
   const [products, setItems] = useState([]);
@@ -40,10 +41,14 @@ const Products = () => {
       title: "Action",
       dataIndex: "id",
       align: "center",
-      render: (id) => <Link to={`/product/${id}`} className="btn btn-xs btn-info">View</Link>,
+      render: (id) => (
+        <Link to={`/product/${id}`} className="btn btn-xs btn-info">
+          View
+        </Link>
+      ),
     },
   ];
-
+  
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -52,22 +57,19 @@ const Products = () => {
           navigate("/login");
           return;
         }
-        const response = await fetch("http://localhost:9000/products", {
+        const response = await api.get("/products", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-        if (!response.ok) {
-          throw new Error("Failed to fetch products");
-        }
-        const data = await response.json();
-        setItems(data);
+        setItems(response.data);
       } catch (error) {
+        console.log(error);
         navigate("/login");
       }
     };
     fetchProducts();
-  }, [navigate]);
+  }, []);
 
   return (
     <>

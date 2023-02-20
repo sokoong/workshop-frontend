@@ -6,14 +6,11 @@ import Login from "./pages/Login";
 import Products from "./pages/Products";
 import Product from "./pages/Product";
 import NotFound from "./pages/NotFound";
-// import Auth from "./hooks/Auth";
 import "./output.css";
 
 const root = createRoot(document.getElementById("root"));
 
 function App() {
-  // const { user } = Auth();
-  // const isAuthenticated = user && user.username;
   const token = localStorage.getItem("token");
   const payload = token ? JSON.parse(window.atob(token.split(".")[1])) : null;
   const isAuthenticated = token && payload;

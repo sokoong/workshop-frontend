@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { Form, Input, InputNumber, Button, Select, Breadcrumb, notification } from "antd";
 import { useParams } from "react-router-dom";
+import api from "../services/api";
 
 const Product = () => {
   const [prod, setProduct] = useState();
@@ -13,7 +13,7 @@ const Product = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        let response = await axios.get(`http://localhost:9000/product/${id}`);
+        const response = await api.get(`/product/${id}`);
         setProduct(response.data);
         setLoading(false);
       } catch (error) {
@@ -29,7 +29,7 @@ const Product = () => {
     try {
       setLoading(true);
       const token = localStorage.getItem("token");
-      const response = await axios.put(`http://localhost:9000/product/${id}`, values, {
+      const response = await api.put(`/product/${id}`, values, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { notification } from "antd";
+import api from "../services/api";
 
 function Auth() {
   const [user, setUser] = useState(null);
@@ -7,20 +8,10 @@ function Auth() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      fetch("http://localhost:9000/user", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      api
+        .get("/user", { headers: { Authorization: `Bearer ${token}` } })
         .then((response) => {
-          if (response.ok) {
-            return response.json();
-          } else {
-            throw new Error("Failed to fetch user data");
-          }
-        })
-        .then((data) => {
-          setUser(data);
+          setUser(response.data);
         })
         .catch((error) => {
           console.log(error);
@@ -29,19 +20,14 @@ function Auth() {
   }, []);
 
   const login = async (values) => {
-    const response = await fetch("http://localhost:9000/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(values),
-    });
-    const data = await response.json();
-    if (response.ok) {
+    try {
+      const response = await api.post("/login", values);
+      const data = response.data;
       localStorage.setItem("token", data.token);
       setUser(data);
       return true;
-    } else {
+    } catch (error) {
+      const data = error.response.data;
       notification.warning({
         message: data.message,
         description: "The entered username or password is invalid.",
